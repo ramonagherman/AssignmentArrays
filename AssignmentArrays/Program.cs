@@ -5,42 +5,26 @@ namespace AssignmentArrays
 {
     class Program
     {
-        static void Main(string[] args)
+        static int Main(string[] args)
         {
-            int n = ReadNumber("Afisare numere prime pana la nr: ");           
-            Nrprim(n);
-        }
-        public static void Nrprim(int n)
-        {            
-            int[] array = new int[n];            
+            int a = 1, b = 1, fib;
+            int n = ReadNumber("Introduceti numarul de elemente: ");
 
-            for (int i = 1; i <= n - 1; i++)
+            Console.Write($"Sirul Fibonacci este:");                           
+            Console.WriteLine();            
+
+            Console.Write($" {a}, {b} ,");
+
+            for (int i = 3; i <= n; i++)
             {
-                array[i] = 1;
+                fib = a + b;
+                a = b;
+                b = fib;
+                Console.Write($"{fib}, ");
             }
 
-            for (int i = 2; i <= n - 1; i++)
-            {
-                if (array[i] == 1) // i este prim => multiplii pana la N vor fi zero
-                {
-                    for (int j = 2; j * i <= n - 1; j++)
-                    {
-                        array[i * j] = 0;
-                    }
-                }
-            }
-
-            Console.WriteLine();
-            Console.Write($"Numerele prime sunt:");
-            for (int i = 1; i <= n - 1; i++)
-            {
-                if (array[i] == 1)
-                {                                                        
-                    Console.Write($" {i} ");                    
-                }
-            }
-            Console.WriteLine();
-        }
+            return 0;
+        }       
 
         static int ReadNumber(string label)
         {
