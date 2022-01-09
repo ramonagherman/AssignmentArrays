@@ -1,85 +1,47 @@
 ﻿using System;
 using System.Linq;
 
-namespace AssignmentSortArrays
+namespace AssignmentArrays
 {
     class Program
     {
-        enum Sorting
-        {            
-            Ascending,     // 0
-            Descending     // 1            
-        }
         static void Main(string[] args)
         {
-            int n = ReadNumber("How many elements has the vector? ");
-            int[] array = new int[n];
-            for (int i = 0; i < array.Length; i++)
+            int n = ReadNumber("Afisare numere prime pana la nr: ");           
+            Nrprim(n);
+        }
+        public static void Nrprim(int n)
+        {            
+            int[] array = new int[n];            
+
+            for (int i = 1; i <= n - 1; i++)
             {
-                array[i] = ReadNumber($"Element at index {i}=");
+                array[i] = 1;
             }
 
-            Console.WriteLine("How do you want array sorting (0-Ascending or 1-Descending)? ");          
-
-            int SortingInput ;
-            if (int.TryParse(Console.ReadLine(), out SortingInput))
-            {                
-                if (Enum.IsDefined(typeof(Sorting), SortingInput))
-                {
-                    Sorting selectedSorting = (Sorting)Convert.ToInt32(SortingInput);
-                    SortArray(selectedSorting, array);
-                }
-                else
-                {
-                    Console.Write("Sorting value is not valid!");
-                    Console.WriteLine();
-                }
-            }           
-        }        
-
-        static void SortArray(Sorting mySorting, int[] array)
-        {
-            if (mySorting == Sorting.Ascending)
-            {                
-                // Sort array in ASC order                
-                Console.WriteLine();
-                Console.Write("Sorted array in Ascending order: ");
-                Array.Sort(array);
-                for (int i = 0; i < array.Length; i++)
-                {
-                    if (i == array.Length-1)
-                    {
-                        Console.Write($"{array[i]} ");
-                    }
-                    else
-                    {
-                        Console.Write($"{array[i]}, ");
-                    }                   
-                }
-                Console.WriteLine();
-            }
-            else
+            for (int i = 2; i <= n - 1; i++)
             {
-                // Sort array in DESC order                
-                Console.WriteLine();
-                Console.Write("Sorted array in Descending order: ");
-                Array.Sort(array);
-                Array.Reverse(array);
-                for (int i = 0; i < array.Length; i++)
+                if (array[i] == 1) // i este prim => multiplii pana la N vor fi zero
                 {
-                    if (i == array.Length-1)
+                    for (int j = 2; j * i <= n - 1; j++)
                     {
-                        Console.Write($"{array[i]} ");
-                    }
-                    else
-                    {
-                        Console.Write($"{array[i]}, ");
+                        array[i * j] = 0;
                     }
                 }
-                Console.WriteLine();
             }
-        }               
-      
+
+            Console.WriteLine();
+            Console.Write($"Numerele prime sunt:");
+            for (int i = 1; i <= n - 1; i++)
+            {
+                if (array[i] == 1)
+                {                                                        
+                    Console.Write($" {i} ");                    
+                }
+            }
+            Console.WriteLine();
+        }
+
         static int ReadNumber(string label)
         {
             Console.Write(label);
